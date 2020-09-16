@@ -91,7 +91,6 @@ Other two files are contained in the folder ```rewards```:
 
 - ```distribution.ipynb```: this notebook inspects the distribution of the seeds in InvertedDoublePendulum (Section 6.9 of the thesis).
 
-All performance for all models and envs is contained in ```rewards/rewards```.
 
 ## Results
 

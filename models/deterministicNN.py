@@ -78,7 +78,7 @@ class NN:
     
 class ens_NNs: 
     """
-    Build an ensemble of NN 
+    Build an ensemble of NNs
     """
     def __init__(self, env, nb_layers = 3, n_hidden = 32, activation_in = 'relu', kernel_initializer="he_normal", 
                  epochs = 30, l_rate = 0.001, n_ensemble = 5, ens_num = 0, env_name = 'Pendulum-v0'):
@@ -117,7 +117,7 @@ class ens_NNs:
     def train(self, X_train, y_train, batch_size=32, validation_split=0.1):
         
         
-        NNs_hist_train=[];
+        NNs_hist_train=[]
         for m in range(len(self.NNs)):  
             print('-- training: ' + str(m+1) + ' of ' + str(self.n_ensemble) + ' NNs --')
             hist = self.NNs[m].fit(X_train, y_train,

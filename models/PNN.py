@@ -14,7 +14,7 @@ import numpy as np
 
 class PNN:
     """
-    Builds basic BNN (Anchored Ensembling) model with uncertainty 
+    Builds one NN of Anchored Ensembling
     """
     
     def __init__(self, env, reg = 'anc', n_hidden = 40, activation_in = 'relu', data_noise = 0.001, n_data = 32, epochs = 30, 
@@ -170,7 +170,7 @@ class PNN:
 
 class ens_PNNs:
     """
-    Build an ensemble of BNNs (Anchored Ensembling) with uncertainty
+    Build Anchored Ensembling
     """
     def __init__(self, env, reg = 'anc', n_hidden = 40, activation_in = 'relu', data_noise = 0.001, n_data = 32, epochs = 30, 
                  l_rate = 0.001, n_ensemble = 5, ens_num = 0, env_name = 'Pendulum-v0'):
@@ -209,7 +209,7 @@ class ens_PNNs:
     
     def train(self, X_train, y_train, batch_size=32, validation_split=0.1):
         
-        NNs_hist_train=[];
+        NNs_hist_train=[]
         for m in range(len(self.NNs)):  
             print('-- training: ' + str(m+1) + ' of ' + str(self.n_ensemble) + ' NNs --')
             hist = self.NNs[m].fit(X_train, y_train,

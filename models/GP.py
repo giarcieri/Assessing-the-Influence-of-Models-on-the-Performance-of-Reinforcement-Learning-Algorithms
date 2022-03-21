@@ -4,11 +4,11 @@ from gpflow.ci_utils import ci_niter
 gpflow.config.set_default_float(np.float64)
 
 class GP:
-    """Build Gaussian Process model compatible with RL code"""
+    """Build Gaussian Process"""
     def __init__(self, env, gp_model, kernel = 'Matern52', mean_function=None, batch_size=32):
         """
         :env: environment
-        :gp_model: two GPs are defined, namely 'GPR' and 'SVGP'. The former is the one applied in the evaluation, the latter did not solve the easiest task
+        :gp_model: two GPs are defined, namely 'GPR' and 'SVGP'. The former is the one applied in the evaluation.
         :param kernel: kernel function for the GP
         """
         self.env = env
@@ -77,7 +77,7 @@ class GP:
         x_test = (x_test - self.mean_X) / self.std_X
         mean, var = self.model.predict_f(np.array(x_test, dtype=float))
         mean = mean * self.std_Y + self.mean_Y
-        var = var * self.std_Y + self.mean_Y
+        var = var * self.std_Y 
         self.mean = mean
         self.var = var
         means_tot = np.nan # just for compatibility with other models

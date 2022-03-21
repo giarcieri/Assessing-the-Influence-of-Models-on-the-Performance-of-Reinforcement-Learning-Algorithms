@@ -28,7 +28,7 @@ class MB_Trainer:
         """
         MB_trainer is the class where all the params are initialized and the RL alrgorithm is executed.
         
-        Here the environment is created using self.env_name, then for each environment the episode lenght and the cost function are set.
+        Here the environment is created using self.env_name, then for each environment the episode length and the cost function are set.
         
         Arguments:
         ----------
@@ -112,8 +112,14 @@ class MB_Trainer:
         """
         RL algorithm, the agent interacts with the environment, learns the dynamics function and collects rewards
         
-        The function begins with importing all the keras/tensorflow related functions and initializing the model through self.model_name and the chosen hyperparameters, then two boolean (epistemic_uncertainty and ensemble) are defined to control the exploration and the compatibility of the RL algorithm for each different model. This is made because this function will be run in parallel for different seeds, and because of a conflict between keras and multiprocessing, everything related to keras/tensorflow is to be defined within each process.
-        Afterwards, the RL algorithm starts. Each seed iteration presents many episode iterations (between 50 and 500) and the lenght of each episode depends on the enviroment. Core of this function is play_one_step that computes one step and it collects new information wich is appended to the dataset. At each step, the agent chooses to expore with probability epsilon or to exploit the model (1 - epsilon). Epsilon starts at 1 in the first episode (only exploration), then it remains constant at 0.01. At the end of each episode, the model is trained on the whole dataset, which keeps the last 2000 (can be set with params['replay_buffer']) data only.
+        The function begins with importing all the keras/tensorflow related functions and initializing the model through self.model_name and the chosen hyperparameters. 
+        Then two booleans (epistemic_uncertainty and ensemble) are defined to control the exploration and the compatibility of the RL algorithm for each different model. 
+        This is made because this function will be run in parallel for different seeds, and because of a conflict between keras and multiprocessing, everything related to keras/tensorflow is to be defined within each process.
+        Afterwards, the RL algorithm starts. Each seed iteration presents many episode iterations (between 50 and 500) and the length of each episode depends on the enviroment. 
+        Core of this function is play_one_step that computes one step and it collects new information wich is appended to the dataset. 
+        At each step, the agent chooses to expore with probability epsilon or to exploit the model (1 - epsilon). 
+        Epsilon starts at 1 in the first episode (only exploration), then it remains constant at 0.01. 
+        At the end of each episode, the model is trained on the whole dataset, which keeps the last 2000 (can be set with params['replay_buffer']) data only.
         
         Arguments:
         ----------

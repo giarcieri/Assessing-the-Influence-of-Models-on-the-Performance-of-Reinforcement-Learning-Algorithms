@@ -11,7 +11,7 @@ def main():
     """
         Function to set the parameters for the RL algorithm. 
         
-        The function takes all the arguments and converts them to a dictionary params, which is passed to the class MB_trainer that initialize all the parameters, create the environment and the model to run, and starts the RL algorithm through run_training_loop().
+        The function takes all the arguments and converts them to a dictionary params, which is passed to the class MB_trainer that initializes all the parameters, creates the environment and the model to run, and starts the RL algorithm through run_training_loop().
         
         Arguments:
         ----------

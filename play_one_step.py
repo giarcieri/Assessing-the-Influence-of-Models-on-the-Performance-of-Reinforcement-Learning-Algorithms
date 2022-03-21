@@ -4,7 +4,9 @@ def play_one_step(replay_memory, state, epsilon, episode, horizon, num_paths, ob
     """
     Function to compute one step of the loop.
 
-    The action of the current step is chosen by using the epsilon_greedy_policy function. The agent takes the action in the environment and observes the next state, the reward, if done and further info. The reward is computed by using our own cost functions. Then all the information of the current step is collected to the dataset.
+    The action of the current step is chosen by using the epsilon_greedy_policy function. 
+    The agent takes the action in the environment and observes the next state, the reward, if done and further info. 
+    The reward is computed by using our own cost functions. Then all the information of the current step is collected to the dataset.
 
     Arguments:
     ----------
@@ -59,7 +61,8 @@ def epsilon_greedy_policy(state, epsilon, episode, horizon, num_paths, model, ep
     """
     Policy of the agent to select the action, deciding between exploration and exploitation.
 
-    A random float in [0,1] is generated, if the number is less than epsilon (i.e. with probability epsilon) the agent explores, otherwise exploits the model through MPC and random shooting (get_action). If the model explores, then if the model can quantify its uncertainty and it is trained -> explores maximizing the Information Gain, otherwise explores randomly.
+    A random float in [0,1] is generated, if the number is less than epsilon (i.e. with probability epsilon) the agent explores, otherwise exploits the model through MPC and random shooting (get_action). 
+    If the model explores, then if the model can quantify its uncertainty and it is trained -> explores maximizing the Information Gain, otherwise explores randomly.
 
     Arguments:
     ----------
@@ -105,7 +108,9 @@ def get_action(state, horizon, num_paths, model, epistemic_uncertainty, ensemble
     """
     Optimization algorithms to exploit the model, it combines Model Predictive Control (MPC) and random shooting.
 
-    Several trajectories, with finite horizon, are computed in parallel. For each trajectory, a random action is sampled and the model predicts the next state, given this action and the current state, until the horizon lenght. All the trajectories are evaluated with the trajectory_cost_fn function, then the first action [0] of the best trajectory [j] is selected.
+    Several trajectories, with finite horizon, are computed in parallel. 
+    For each trajectory, a random action is sampled and the model predicts the next state, given this action and the current state, until the horizon lenght. 
+    All the trajectories are evaluated with the trajectory_cost_fn function, then the first action [0] of the best trajectory [j] is selected.
 
     Arguments:
     ----------
@@ -154,7 +159,8 @@ def trajectory_cost_fn(cost_fn, states, actions, env):
     """
     Function to compute the total rewards for all the trajectories
 
-    It takes two lists as inputs: the list of all the states for all the trajectories, and the list of all the actions for all the trajectories. It computes in parallel the total rewards of the trajectories, over all the steps i of the horizon planning.
+    It takes two lists as inputs: the list of all the states for all the trajectories, and the list of all the actions for all the trajectories. 
+    It computes in parallel the total rewards of the trajectories, over all the steps i of the horizon planning.
 
     Arguments:
     ----------
@@ -179,7 +185,11 @@ def IG_exploration(state, model, ensemble, env):
     """
     Exploration policy based on Information Gain.
 
-    This function defines the exploration for the models which can quantify the epistemic uncertainty. A certain number of action (here 50, but it can be set) is sampled, then the model predicts the next state, given the current state, for each different action. In addition, the model then quantify the epistemic uncertainty for each prediction. Since the epistemic uncertainty is calculated as a variance of each dimension of each state, can be directly sum up over the observation space of each prediction, in order to have a comparable value among the different states. Finally, it is selected the action with the highest uncertainty: in this way, the agent will see the true next state for that action, the tuple will be appended to the dataset the model will be trained on, so it will no longer be uncertain about it. 
+    This function defines the exploration for the models which can quantify the epistemic uncertainty. 
+    A certain number of actions  is sampled, then the model predicts the next state, given the current state, for each different action. 
+    In addition, the model then quantify the epistemic uncertainty for each prediction. 
+    Since the epistemic uncertainty is calculated as a variance of each dimension of each state, can be directly sum up over the observation space of each prediction, in order to have a comparable value among the different states. 
+    Finally, it is selected the action with the highest uncertainty: in this way, the agent will see the true next state for that action, the tuple will be appended to the dataset the model will be trained on, so it will no longer be uncertain about it. 
     This policy allows to visit areas of the environment where the model is uncertain only, without exploring areas it is very certain about.
 
     Arguments:

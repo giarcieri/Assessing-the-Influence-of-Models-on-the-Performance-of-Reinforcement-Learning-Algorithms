@@ -29,7 +29,8 @@ def training_step(replay_memory, model, ensemble, obs_space, action_space):
     """
     Function to train the model.
 
-    The relevant information are extracted from the replay buffer, states and actions are the inputs to predict the next states. The model is not trained to predict the next states directly, but rather the difference from the next state and the current state: in this way the performance has been proved to be more stable (Deisenroth, 2017).
+    The relevant information are extracted from the replay buffer, states and actions are the inputs to predict the next states. 
+    The model is not trained to predict the next states directly, but rather the difference from the next state and the current state: in this way the performance has been proved to be more stable (Deisenroth, 2017).
 
     Arguments:
     ----------
